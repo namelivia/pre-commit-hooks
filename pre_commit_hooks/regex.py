@@ -27,7 +27,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         with open(filename, 'rb') as f:
             line = f.read()
             files_containing.append(filename) if any(
-                re.search(expression, line) for expression in args.expressions
+                re.search(r'{}'.format(expression), line)
+                for expression in args.expressions
             ) else None
 
     if files_containing:
