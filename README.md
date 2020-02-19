@@ -1,4 +1,4 @@
-# pre-commit-hooks [![tag](https://img.shields.io/github/tag/namelivia/pre-commit-hooks.svg)](https://github.com/namelivia/pre-commit-hooks/releases) [![Build Status](https://travis-ci.org/namelivia/pre-commit-hooks.svg?branch=master)](https://travis-ci.org/namelivia/pre-commit-hooks)
+# pre-commit-hooks [![tag](https://img.shields.io/github/tag/namelivia/pre-commit-hooks.svg)](https://github.com/namelivia/pre-commit-hooks/releases) [![Build Status](https://travis-ci.org/namelivia/pre-commit-hooks.svg?branch=master)](https://travis-ci.org/namelivia/pre-commit-hooks) [![codecov](https://codecov.io/gh/namelivia/pre-commit-hooks/branch/master/graph/badge.svg)](https://codecov.io/gh/namelivia/pre-commit-hooks)
 
 Some custom hooks for pre-commit.
 
