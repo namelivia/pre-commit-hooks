@@ -38,8 +38,11 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
     if files_containing:
         color = '\033[31m' if args.critical else '\033[33m'
+        icon = '\U000026A0' if args.critical else '\U00002604'
         for file_contaning in files_containing:
-            print(f'{color}{file_contaning}: {args.custom_message}')
+            print(
+                f'{color}{icon}{file_contaning}: {args.custom_message}\033[0m'
+            )
         if (args.critical):
             return 1
     else:
