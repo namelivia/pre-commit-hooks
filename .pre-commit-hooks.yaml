@@ -1,6 +1,9 @@
-- id: regex
-    name: Regex check
-    description: Checks for a regex on the code
-    entry: regex
-    language: python
-    types: [text]
+--- 
+- 
+  description: "Checks for a regex on the code"
+  entry: regex
+  id: regex
+  language: python
+  name: "Check for regex"
+  types: 
+    - text
