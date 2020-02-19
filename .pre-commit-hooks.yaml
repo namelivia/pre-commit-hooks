@@ -1,8 +1,6 @@
 - id: regex
-  name: regex
-  description: "Regex checker pre-commit"
-  entry: regex
-  language: python
-  language_version: python3
-  require_serial: true
-  types: [python]
+    name: Regex check
+    description: Checks for a regex on the code
+    entry: regex
+    language: python
+    types: [text]
