@@ -17,7 +17,9 @@ BLACKLIST = [
 def main(argv: Optional[Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument('filenames', nargs='*', help='Filenames to check')
+    parser.add_argument('custom_message', help='Custom message to print')
     args = parser.parse_args(argv)
+    print(args.custom_message)
 
     private_key_files = []
 
