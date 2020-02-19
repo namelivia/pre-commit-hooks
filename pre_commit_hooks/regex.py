@@ -39,7 +39,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
     if files_containing:
         color = '\033[31m' if args.critical else '\033[33m'
-        icon = emoji.emojize(':no_entry:') if args.critical else emoji.emojize(':bulb:')
+        icon = emoji.emojize(':no_entry:') if args.critical else emoji.emojize(':bulb:', use_aliases=True)
         for file_contaning in files_containing:
             print(
                 f'{color}{icon} {file_contaning}: {args.custom_message}\033[0m'
