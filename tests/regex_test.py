@@ -1,24 +1,38 @@
 import pytest
+import mock
+import argparse
 
 from pre_commit_hooks.regex import main
 
-# Input, expected return value
-TESTS = (
-    (b'-----BEGIN RSA PRIVATE KEY-----', 1),
-    (b'-----BEGIN DSA PRIVATE KEY-----', 1),
-    (b'-----BEGIN EC PRIVATE KEY-----', 1),
-    (b'-----BEGIN OPENSSH PRIVATE KEY-----', 1),
-    (b'PuTTY-User-Key-File-2: ssh-rsa', 1),
-    (b'---- BEGIN SSH2 ENCRYPTED PRIVATE KEY ----', 1),
-    (b'ssh-rsa DATA', 0),
-    (b'ssh-dsa DATA', 0),
-    # Some arbitrary binary data
-    (b'\xa2\xf1\x93\x12', 0),
+@mock.patch('argparse.ArgumentParser.parse_args', return_value=argparse.Namespace(
+    critical='True',
+    custom_message='We dont talk about this',
+    filenames=['/file/one', '/file/two/'],
+    pattern='(?:fight club)')
 )
+@mock.patch("builtins.print")
+@mock.patch("builtins.open", new_callable=mock.mock_open, read_data=b"I like fight club")
+def test_matching_a_critical_rule_twice(m_open, m_print, m_argparse):
+    assert main(['test']) == 1
 
+@mock.patch('argparse.ArgumentParser.parse_args', return_value=argparse.Namespace(
+    critical=None,
+    custom_message='He-Who-Must-Not-Be-Named',
+    filenames=['/file/one'],
+    pattern='(?:Voldemort)')
+)
+@mock.patch("builtins.print")
+@mock.patch("builtins.open", new_callable=mock.mock_open, read_data=b"Tell me about Voldemort")
+def test_matching_a_non_critical_rule(m_open, m_print, m_argparse):
+    assert main(['arguments']) == 0
 
-@pytest.mark.parametrize(('input_s', 'expected_retval'), TESTS)
-def test_main(input_s, expected_retval, tmpdir):
-    path = tmpdir.join('file.txt')
-    path.write_binary(input_s)
-    assert main([path.strpath]) == expected_retval
+@mock.patch('argparse.ArgumentParser.parse_args', return_value=argparse.Namespace(
+    critical='True',
+    custom_message='You are not allowed to say that',
+    filenames=['/file/one', '/file/two'],
+    pattern='(?:the f word)')
+)
+@mock.patch("builtins.print")
+@mock.patch("builtins.open", new_callable=mock.mock_open, read_data=b"Just a SFW sentence")
+def test_non_matching_rule(m_open, m_print, m_argparse):
+    assert main(['arguments']) == 0
