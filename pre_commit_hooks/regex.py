@@ -2,6 +2,11 @@ import argparse
 import re
 from typing import Optional
 from typing import Sequence
+import os
+import sys
+
+if sys.platform.lower() == "win32":
+    os.system('color')
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
@@ -32,8 +37,9 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             ) else None
 
     if files_containing:
+        color = '\033[31m' if args.critical else '\033[33m'
         for file_contaning in files_containing:
-            print(f'{file_contaning}: {args.custom_message}')
+            print(f'{color}{file_contaning}: {args.custom_message}')
         if (args.critical):
             return 1
     else:
