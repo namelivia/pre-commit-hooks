@@ -6,7 +6,12 @@ from typing import Sequence
 def main(argv: Optional[Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument('filenames', nargs='*', help='Filenames to check')
-    parser.add_argument('expressions', nargs='*', help='Expressions to check')
+    parser.add_argument(
+        '--expressions',
+        nargs='*',
+        help='Expressions to check',
+        default=[]
+    )
     parser.add_argument('--custom_message', help='Custom message to print')
     parser.add_argument(
         '--critical',
