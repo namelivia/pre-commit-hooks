@@ -18,8 +18,17 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument('filenames', nargs='*', help='Filenames to check')
     parser.add_argument('--custom_message', help='Custom message to print')
+    parser.add_argument(
+        '--critical',
+        help='If active the regex matching should block the commit',
+        default=False
+    )
     args = parser.parse_args(argv)
+    print('Testing for custom message')
     print(args.custom_message)
+    if (args.critical):
+        return 1
+    return 0
 
     private_key_files = []
 
