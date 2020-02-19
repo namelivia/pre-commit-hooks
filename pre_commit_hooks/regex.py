@@ -1,4 +1,5 @@
 import argparse
+import re
 from typing import Optional
 from typing import Sequence
 
@@ -24,9 +25,10 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
     for filename in args.filenames:
         with open(filename, 'rb') as f:
-            content = f.read()
-            if any(line in content for line in args.expressions):
-                files_containing.append(filename)
+            line = f.read()
+            files_containing.append(filename) if any(
+                re.match(expression, line) for expression in args.expressions
+            ) else None
 
     if files_containing:
         for file_contaning in files_containing:
