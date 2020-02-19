@@ -2,7 +2,7 @@
 
 Some custom hooks for pre-commit.
 
-See also: https://github.com/pre-commit/pre-commit
+Based on: https://github.com/pre-commit/pre-commit
 
 
 ### Using pre-commit-hooks with pre-commit
