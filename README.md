@@ -19,3 +19,36 @@ Add this to your `.pre-commit-config.yaml`
 
 #### `regex`
 Look for regular expressions on the new code.
+<img src="https://user-images.githubusercontent.com/1571416/74920608-bb5ba280-53cc-11ea-9ee3-637a7d8db85e.gif" alt="Example GIF" />
+
+<b>Configuration:</b>
+Add the following to the `repos` section of your `.pre-commit-config.yaml`:
+```yaml
+- repo: https://github.com/namelivia/pre-commit-hooks
+  sha: 1.0.0
+  hooks:
+	  - id: regex
+		language_version: python3.6
+		exclude: '^.pre-commit-config.yaml'
+		verbose: true
+		args: [
+			'--critical',
+			'--message', 'We dont talk about this',
+			'--pattern', '(?:fight club)'
+		]
+
+	  - id: regex
+		language_version: python3.6
+		exclude: '^.pre-commit-config.yaml'
+		verbose: true
+		args: [
+			'--message', 'He-Who-Must-Not-Be-Named',
+			'--pattern', '(?:Voldemort)'
+		]
+
+```
+
+<b>Arguments:</b>
+ - `---critical` : If present the commit will be blocked when the pattern is found.
+ - `---message` : The message that will be displayed when the pattern is found.
+ - `---pattern` : The pattern to be looking for, expressed in a [regular expression](https://docs.python.org/3/howto/regex.html) form.
