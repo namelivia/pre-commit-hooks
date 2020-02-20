@@ -10,38 +10,45 @@ if sys.platform.lower() == "win32":
     os.system("color")
 
 
-def main(argv: Optional[Sequence[str]] = None) -> int:
+def _get_arguments(argv):
     parser = argparse.ArgumentParser()
     parser.add_argument("filenames", nargs="*", help="Filenames to check")
     parser.add_argument("--pattern", help="Pattern to check")
-    parser.add_argument("--custom_message", help="Custom message to print")
+    parser.add_argument("--message", help="Message to print when pattern is present")
     parser.add_argument(
         "--critical",
-        help="If present the regex matching should block the commit",
+        help="If present when the patterin is present the commit is blocked",
         action="store_true",
     )
-    args = parser.parse_args(argv)
+    return parser.parse_args(argv)
 
-    files_containing = []
 
-    for filename in args.filenames:
+def _get_matching_files(expression, filenames):
+    result = []
+    for filename in filenames:
         with open(filename, "rb") as f:
             line = f.read()
-            if re.search(
-                re.compile(args.pattern.encode()),
-                line
-            ):
-                files_containing.append(filename)
+            if re.search(expression, line):
+                result.append(filename)
+    return result
 
-    if files_containing:
-        color = "\033[31m" if args.critical else "\033[33m"
-        icon = (
-            emoji.emojize(":no_entry:")
-            if args.critical
-            else emoji.emojize(":bulb:", use_aliases=True)
-        )
-        for file_contaning in files_containing:
-            print(f"{color}{icon} {file_contaning}: {args.custom_message}\033[0m")
+
+def _report_results(matching_files, critical, message):
+    color = "\033[31m" if critical else "\033[33m"
+    icon = (
+        emoji.emojize(":no_entry:") if critical else emoji.emojize(":bulb:", use_aliases=True)
+    )
+    for matching_file in matching_files:
+        print(f"{color}{icon} {matching_file}: {message}\033[0m")
+
+
+def main(argv: Optional[Sequence[str]] = None) -> int:
+    args = _get_arguments(argv)
+    expression = re.compile(args.pattern.encode())
+    matching_files = _get_matching_files(expression, args.filenames)
+
+    if matching_files:
+        _report_results(matching_files, args.critical, args.message)
         if args.critical:
             return 1
     return 0

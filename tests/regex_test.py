@@ -6,7 +6,7 @@ from pre_commit_hooks.regex import main
 
 @mock.patch('argparse.ArgumentParser.parse_args', return_value=argparse.Namespace(
     critical='True',
-    custom_message='We dont talk about this',
+    message='We dont talk about this',
     filenames=['/file/one', '/file/two/'],
     pattern='(?:fight club)')
 )
@@ -17,7 +17,7 @@ def test_matching_a_critical_rule_twice(m_open, m_print, m_argparse):
 
 @mock.patch('argparse.ArgumentParser.parse_args', return_value=argparse.Namespace(
     critical=None,
-    custom_message='He-Who-Must-Not-Be-Named',
+    message='He-Who-Must-Not-Be-Named',
     filenames=['/file/one'],
     pattern='(?:Voldemort)')
 )
@@ -28,7 +28,7 @@ def test_matching_a_non_critical_rule(m_open, m_print, m_argparse):
 
 @mock.patch('argparse.ArgumentParser.parse_args', return_value=argparse.Namespace(
     critical='True',
-    custom_message='You are not allowed to say that',
+    message='You are not allowed to say that',
     filenames=['/file/one', '/file/two'],
     pattern='(?:the f word)')
 )
