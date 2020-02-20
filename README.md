@@ -22,7 +22,7 @@ Look for regular expressions on the new code.
 <img src="https://user-images.githubusercontent.com/1571416/74920608-bb5ba280-53cc-11ea-9ee3-637a7d8db85e.gif" alt="Example GIF" />
 
 <b>Configuration:</b>
-Add the following to the `repos` section of your `.pre-commit-config.yaml`:
+You can add as many rules as you want like the following ones to the `repos` section of your `.pre-commit-config.yaml`:
 ```
 - repo: https://github.com/namelivia/pre-commit-hooks
   sha: 1.0.0
