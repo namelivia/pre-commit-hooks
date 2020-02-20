@@ -23,7 +23,7 @@ Look for regular expressions on the new code.
 
 <b>Configuration:</b>
 Add the following to the `repos` section of your `.pre-commit-config.yaml`:
-```yaml
+```
 - repo: https://github.com/namelivia/pre-commit-hooks
   sha: 1.0.0
   hooks:
@@ -49,6 +49,6 @@ Add the following to the `repos` section of your `.pre-commit-config.yaml`:
 ```
 
 <b>Arguments:</b>
- - `---critical` : If present the commit will be blocked when the pattern is found.
- - `---message` : The message that will be displayed when the pattern is found.
- - `---pattern` : The pattern to be looking for, expressed in a [regular expression](https://docs.python.org/3/howto/regex.html) form.
+ - `--critical` : If present the commit will be blocked when the pattern is found.
+ - `--message` : The message that will be displayed when the pattern is found.
+ - `--pattern` : The pattern to be looking for, expressed in a [regular expression](https://docs.python.org/3/howto/regex.html) form.
