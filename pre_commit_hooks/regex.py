@@ -27,9 +27,11 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     for filename in args.filenames:
         with open(filename, "rb") as f:
             line = f.read()
-            files_containing.append(filename) if re.search(
-                re.compile(args.pattern.encode()), line
-            ) else None
+            if re.search(
+                re.compile(args.pattern.encode()),
+                line
+            ):
+                files_containing.append(filename)
 
     if files_containing:
         color = "\033[31m" if args.critical else "\033[33m"
